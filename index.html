@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Benimle çıkar mısın? ❤️</title>
+  <meta name="description" content="Sevgiline sorunun en tatlı yolu." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1:#0f1026;
+      --bg2:#1a1336;
+      --accent:#ff2d55;
+      --accent-2:#ff7a7a;
+      --card:#141425cc;
+      --text:#f6f6f9;
+      --muted:#c9c9d3;
+      --glass: rgba(255,255,255,0.08);
+      --border: rgba(255,255,255,0.12);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+    body{
+      font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, #ff2d5540, transparent 60%),
+        radial-gradient(800px 500px at 110% 10%, #6b5bff40, transparent 60%),
+        linear-gradient(160deg,var(--bg1),var(--bg2) 60%);
+      overflow:hidden;
+    }
+    .stars{
+      position:fixed; inset:0; pointer-events:none; z-index:0;
+      background-image:
+        radial-gradient(2px 2px at 20% 30%, #ffffff66 40%, transparent 41%),
+        radial-gradient(1.5px 1.5px at 70% 60%, #ffffff55 40%, transparent 41%),
+        radial-gradient(1.2px 1.2px at 40% 80%, #ffffff40 40%, transparent 41%);
+      mix-blend-mode:screen;
+    }
+    .wrap{
+      position:relative; z-index:1;
+      display:grid; place-items:center; height:100%; padding:24px;
+    }
+    .card{
+      width:min(720px, 94vw);
+      background:linear-gradient(180deg, var(--glass), transparent), var(--card);
+      border:1px solid var(--border);
+      backdrop-filter: blur(10px);
+      border-radius:28px;
+      box-shadow:var(--shadow);
+      padding:28px 28px 24px;
+      position:relative;
+      overflow:hidden;
+      animation: pop .6s ease-out both;
+    }
+    @keyframes pop{from{transform:translateY(10px) scale(.98); opacity:.0} to{transform:none; opacity:1}}
+
+    .ribbon{
+      position:absolute; inset:auto -60px 0 auto; transform:rotate(-45deg);
+      background:linear-gradient(90deg, var(--accent), var(--accent-2));
+      color:white; padding:10px 80px; font-weight:700; letter-spacing:.8px; font-size:12px;
+      box-shadow:0 8px 20px #ff2d5533;
+    }
+    header{
+      display:flex; gap:18px; align-items:center; margin-bottom:12px;
+    }
+    .avatar{
+      width:66px; height:66px; border-radius:50%;
+      background: url('https://images.unsplash.com/photo-1517511620798-cec17d428bc0?q=80&w=200&auto=format&fit=crop') center/cover no-repeat;
+      border:2px solid var(--border);
+      box-shadow:0 4px 14px rgba(0,0,0,.25);
+      flex:0 0 auto;
+    }
+    h1{
+      margin:0;
+      font-size:clamp(24px, 3.2vw, 36px);
+      line-height:1.2;
+      letter-spacing:.3px;
+    }
+    .sub{
+      margin:4px 0 0;
+      color:var(--muted);
+      font-weight:300;
+      font-size:clamp(13px, 1.6vw, 15px);
+    }
+
+    .content{
+      margin-top:18px;
+      display:grid;
+      gap:18px;
+    }
+    .note{
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px dashed var(--border);
+      padding:14px 16px; border-radius:16px; color:#e9e9f5;
+    }
+    .buttons{
+      display:flex; gap:14px; flex-wrap:wrap; margin-top:8px;
+    }
+    .btn{
+      appearance:none; border:none; cursor:pointer;
+      padding:14px 20px; font-weight:700; border-radius:999px;
+      transition: transform .12s ease, box-shadow .12s ease, background .3s ease;
+      letter-spacing:.5px; position:relative; isolation:isolate;
+    }
+    .btn:focus{outline:2px solid #ffffff44; outline-offset:2px}
+    .btn-primary{
+      background:linear-gradient(180deg, var(--accent), #ff3d6b);
+      color:white;
+      box-shadow:0 10px 22px #ff2d5530, inset 0 -2px 0 #ffffff22;
+    }
+    .btn-primary:hover{ transform: translateY(-1px); box-shadow:0 12px 26px #ff2d553a, inset 0 -2px 0 #ffffff33;}
+    .btn-ghost{
+      background:transparent; border:1px solid var(--border); color:var(--text);
+    }
+    .btn-ghost:hover{ transform: translateY(-1px); box-shadow:0 8px 18px rgba(0,0,0,.25)}
+    .btn-ghost.runaway{ position:absolute; }
+
+    .tiny{
+      font-size:12px; color:#bdbdd3; margin-top:8px
+    }
+    .footer{
+      display:flex; justify-content:space-between; align-items:center; margin-top:6px; color:#bfbfca; font-size:12px;
+    }
+
+    /* Modal */
+    .overlay{
+      position:fixed; inset:0; display:none; place-items:center; z-index:30;
+      background:rgba(10,10,18,.6); backdrop-filter: blur(6px);
+      animation: fadeIn .3s ease both;
+    }
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    .modal{
+      width:min(560px, 90vw);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--border);
+      border-radius:24px; padding:26px 22px;
+      text-align:center; box-shadow:var(--shadow);
+      position:relative; overflow:hidden;
+    }
+    .modal h2{ margin:6px 0 10px; font-size:28px}
+    .modal p{ margin:0; color:#e9e9f2}
+    .close{
+      position:absolute; top:10px; right:12px; background:transparent; border:none; color:#fff; font-size:22px; cursor:pointer;
+    }
+
+    /* Floating hearts (confetti) */
+    .heart{
+      position:fixed; width:18px; height:18px; transform:rotate(45deg);
+      background: var(--accent);
+      pointer-events:none; z-index:20; opacity:.95;
+      animation: float 2.6s ease-in forwards;
+      filter: drop-shadow(0 6px 12px rgba(255,45,85,.35));
+    }
+    .heart:before, .heart:after{
+      content:""; position:absolute; width:18px; height:18px; background:inherit; border-radius:50%;
+    }
+    .heart:before{ left:-9px; }
+    .heart:after{ top:-9px; }
+    @keyframes float{
+      0%{ transform:translateY(0) rotate(45deg) scale(0.9); opacity:1}
+      70%{ opacity:.95}
+      100%{ transform:translateY(-120vh) rotate(45deg) scale(1.1); opacity:0}
+    }
+
+    /* Responsiveness */
+    @media (max-width:520px){
+      .avatar{ width:56px; height:56px}
+      .buttons{ gap:10px }
+      .btn{ padding:12px 16px }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <div class="card" id="card">
+      <div class="ribbon">Sadece dürüst ol 💘</div>
+      <header>
+        <div class="avatar" title="Senin fotoğrafınla değiştirilebilir"></div>
+        <div>
+          <h1>Benimle çıkar mısın?</h1>
+          <p class="sub">Çünkü sen + ben = <strong>çok güzel bir hikâye</strong> olabilir. ✨</p>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="note">
+          Küçük not: “Hayır” demek istersen de saygı duyarım; ama “Evet” dersen yıldızları birlikte izleriz. 🌙
+        </div>
+
+        <div class="buttons" id="buttons">
+          <button class="btn btn-primary" id="yesBtn">Evet! ❤️</button>
+          <button class="btn btn-ghost" id="noBtn">Hayır 🙈</button>
+        </div>
+        <div class="tiny">İpucu: Klavyeden <strong>E V E T</strong> yazmayı dene.</div>
+
+        <div class="footer">
+          <span>Made with ♥ by <strong>Sen</strong></span>
+          <span id="timer"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal">
+      <button class="close" id="close" aria-label="Kapat">✕</button>
+      <h2>Yaşasın! 🎉</h2>
+      <p>Artık resmen sevgiliyiz. İlk randevuyu ben planlıyorum: <em>Üsküdarda gloria jeans'de sana sade türk kahvesi bende bir kahve alırım </em></p>
+    </div>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn  = document.getElementById('noBtn');
+    const overlay = document.getElementById('overlay');
+    const closeBtn = document.getElementById('close');
+    const buttonsWrap = document.getElementById('buttons');
+    const card = document.getElementById('card');
+    const timerEl = document.getElementById('timer');
+
+    // Cute timer since page open
+    const started = Date.now();
+    setInterval(()=> {
+      const s = Math.floor((Date.now()-started)/1000);
+      timerEl.textContent = `Bu soruyu sorduğumdan beri ${s} saniye geçti 💫`;
+    }, 1000);
+
+    // Heart confetti
+    function burstHearts(count=28){
+      const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+      for(let i=0; i<count; i++){
+        const h = document.createElement('div');
+        h.className = 'heart';
+        const x = Math.random()*vw;
+        const size = 14 + Math.random()*12;
+        h.style.left = x+'px';
+        h.style.bottom = '-20px';
+        h.style.width = size+'px';
+        h.style.height = size+'px';
+        h.style.animationDuration = (1.8 + Math.random()*1.8)+'s';
+        h.style.opacity = 0.85 + Math.random()*0.15;
+        document.body.appendChild(h);
+        setTimeout(()=> h.remove(), 3000);
+      }
+    }
+
+    // Modal open/close
+    function openModal(){
+      overlay.style.display = 'grid';
+      overlay.setAttribute('aria-hidden','false');
+      burstHearts(42);
+    }
+    function closeModal(){
+      overlay.style.display = 'none';
+      overlay.setAttribute('aria-hidden','true');
+    }
+    yesBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', (e)=> { if(e.target === overlay) closeModal(); });
+
+    // "No" button runs away from the cursor
+    let runawayMode = false;
+    function randomPosWithin(el, container){
+      const cRect = container.getBoundingClientRect();
+      const bRect = el.getBoundingClientRect();
+      const maxX = cRect.width - bRect.width;
+      const maxY = cRect.height - bRect.height;
+      const x = Math.max(0, Math.min(maxX, (Math.random()*maxX)));
+      const y = Math.max(0, Math.min(maxY, (Math.random()*maxY)));
+      return { x, y };
+    }
+
+    noBtn.addEventListener('mouseenter', () => {
+      runawayMode = true;
+      noBtn.classList.add('runaway');
+    });
+
+    buttonsWrap.addEventListener('mousemove', (e) => {
+      if(!runawayMode) return;
+      const { x, y } = randomPosWithin(noBtn, card);
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    });
+
+    // If user still clicks "Hayır", gently nudge to "Evet"
+    noBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const phrases = [
+        'Emin misin? 🙃',
+        'Bir daha düşünsek mi? 😇',
+        'Bence şans verelim! 💞',
+        'Kalbim “Evet” diyor... 💘'
+      ];
+      noBtn.textContent = phrases[Math.floor(Math.random()*phrases.length)];
+      burstHearts(12);
+    });
+
+    // Keyboard easter egg: type E V E T
+    const seq = ['e','v','e','t'];
+    let idx = 0;
+    window.addEventListener('keydown', (e)=>{
+      if(e.key.toLowerCase() === seq[idx]) {
+        idx++;
+        if(idx === seq.length){ openModal(); idx = 0; }
+      } else {
+        idx = 0;
+      }
+    });
+
+    // Subtle pulsing for the yes button
+    setInterval(()=>{
+      yesBtn.animate([
+        { transform:'translateY(0) scale(1)' },
+        { transform:'translateY(-2px) scale(1.02)' },
+        { transform:'translateY(0) scale(1)' }
+      ], { duration: 1200, iterations:1, easing:'ease-in-out' });
+    }, 2200);
+  </script>
+</body>
+</html>
